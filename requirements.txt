@@ -1,3 +1,6 @@
 langchain
+langchain_community
 langchain-openai
-dotenv
+langchain-groq
+langchain-google-genai
+python-dotenv
