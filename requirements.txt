@@ -6,3 +6,4 @@ langchain-google-genai
 python-dotenv
 langgraph
 langsmith
+langchain_tavily
