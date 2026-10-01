@@ -114,6 +114,18 @@ config={"configurable":{"thread_id":"1"}}
 # res=graph.invoke({"messages":"what is recent ai news"})
 # res=graph.invoke({"messages":"what is recent ai news and what is 2 multiple by 3"})
 # res=graph.invoke({"messages":"Hi, my name is eshwar"},config=config)
-res=graph.invoke({"messages":"what is my name"},config=config)
+res=graph.invoke({"messages":"what is my name"},config)
 for m in res["messages"]:
     print(m.pretty_print())
+
+
+#========================
+# Langgraph Streaming: stream() and asStream()
+# updates and values
+#=========================
+# Human in the loop
+
+#=======================
+# Bulding MCP Server
+
+ 
