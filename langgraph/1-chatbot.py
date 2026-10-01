@@ -77,7 +77,7 @@ graph= builder.compile()
 # print(res)
 
 #===========================================
-#Tool calling with LangGraph with ReAct Architecture
+#Tool calling with LangGraph with ReAct Architecture and adding memroy
 
 from langchain_tavily import TavilySearch
 
@@ -91,6 +91,8 @@ tools=[tavilytool,multiply]
 llm_with_tools=model.bind_tools(tools)
 
 from langgraph.prebuilt import ToolNode, tools_condition
+from langgraph.checkpoint.memory import MemorySaver
+memory=MemorySaver()
 
 #node defination
 def tool_calling_llm(state:State):
@@ -106,8 +108,12 @@ builder.add_edge(START,"tool_calling_llm")
 builder.add_conditional_edges("tool_calling_llm",tools_condition)
 builder.add_edge("tools","tool_calling_llm")
 
-graph= builder.compile()
+graph= builder.compile(checkpointer=memory)
+config={"configurable":{"thread_id":"1"}}
 
 # res=graph.invoke({"messages":"what is recent ai news"})
-res=graph.invoke({"messages":"what is recent ai news and what is 2 multiple by 3"})
-print(res)
+# res=graph.invoke({"messages":"what is recent ai news and what is 2 multiple by 3"})
+# res=graph.invoke({"messages":"Hi, my name is eshwar"},config=config)
+res=graph.invoke({"messages":"what is my name"},config=config)
+for m in res["messages"]:
+    print(m.pretty_print())
